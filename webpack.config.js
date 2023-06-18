@@ -45,7 +45,8 @@ const baseConfig = {
   },
   output: {
     filename: "index.[contenthash].js",
-    path: path.resolve(__dirname, "../dist")
+    path: path.resolve(__dirname, "../dist"),
+    clean: true
   },
   plugins: [new CleanWebpackPlugin()]
 }
