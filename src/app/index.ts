@@ -1,18 +1,26 @@
+import { Main } from "features/MainPage"
+import SignUp from "pages/SignUp"
+
 class App {
   private static readonly body: HTMLElement = document.body
+  private static readonly main: Main = new Main("main", "main")
 
-  generatePage(): void {
+  async generatePage(): Promise<void> {
     const wrapper = document.createElement("div")
-    wrapper.classList.add("page-wrapper")
-    const title = document.createElement("h1")
-    title.textContent = "Hello world"
+    wrapper.setAttribute("class", "page-wrapper")
 
-    wrapper.append(title)
+    const mainPage = new SignUp("signUp")
+    const page = async (): Promise<void> => {
+      const pageHTML = await mainPage.render()
+      App.main.render().append(pageHTML)
+    }
+    await page()
+    wrapper.append(App.main.render())
     App.body.append(wrapper)
   }
 
   run(): void {
-    this.generatePage()
+    void this.generatePage()
   }
 }
 
